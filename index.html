@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<!--<meta name="robots" content="noindex">-->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta property="og:image"content="https://rangevote.github.io/st/1234.png" />
+		<meta property="og:title"content="All votes matter" />
+		<meta property="og:text"content="Thet is my #rangevote What's yours?" />
+		<meta property="og:description"content="Site where you can place the candidates in order of your preference and share it with others" />
+		<title>All votes matter</title>
+		<link rel="shortcut icon" type="image/jpg" href="st/favicon.jpg"/>
+		<style id="css">
+
+body {
+	margin: 10px;
+}
+
+.glyphicon-move {
+	cursor: move;
+	cursor: -webkit-grabbing;
+}
+.party { 
+	font-size: 60%;
+
+}
+.name {
+	width: 50%;
+	margin: auto;
+	color: black;     
+	text-align: center;
+	font-size: 120%;
+	font-weight:bold;
+	text-shadow: 2px #fff, -2px #fff, 2px #fff, -2px #fff, 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+	background-image: none !important;
+	background: white;
+	border-radius: 10px 10px 10px 10px;
+
+}     
+.icon{
+	float: left;
+	border-radius: 20%;
+	height: 50px;
+	width: 50px;
+	border: 5px solid white;
+}
+div.top{
+	text-align: center;
+	font-weight: bold;
+	font-size: 180%
+
+}
+div.bottom{
+	text-align: center;
+	font-weight: bold;
+	font-size: 180%;
+	background: black;
+	color: white;
+	border-radius: 10px 10px 10px 10px;
+}
+.republican{
+	background-image: url("st/logo-republicans.png");
+	background-size: 8%;
+}
+.democrat{
+	background-image: url("st/democrat1.png");
+	background-size: 8%;
+}
+.libertarian{
+	background-image: url("st/libertarian1.png");
+	background-size: 4%;
+}
+.green{
+	background-image: url("st/green1.png");
+	background-size: 8%;
+}
+.ad{
+	<!--width: 50%;-->
+	<!--margin: auto;-->
+	float: left;
+}
+@media only screen and (max-device-width: 1000px) {
+	.list {
+		width: 100% !important;
+		font-size: 250%;
+	}
+	.icon{
+		float: left;
+		border-radius: 10%;
+		height: 100px;
+		width: 100px;
+	}
+	.white_content {
+		top: 5% !important;
+		left: 5% !important;
+		width: 90% !important;
+		height: 90% !important;
+	}
+	.result_image {
+		width: 100% !important;
+	}
+	table {
+		font-size: 50%;
+	}
+}
+@media (min-width: 750px) and (max-width: 970px){
+}
+		.result_button	{
+			text-align: center;
+			font-weight: bold;
+			display: inline;
+			padding: 15px 25px;
+			font-size: 24px;
+			cursor: pointer;
+			text-align: center;
+			text-decoration: none;
+			outline: none;
+			color: #fff;
+			background-color: #3498db;
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 9px #999;
+			width: 100%
+		}
+.result_button:hover {background-color: #3e8e41}
+
+.result_button:active {
+  background-color: #3498db;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.black_overlay{
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index:1001;
+	-moz-opacity: 0.8;
+	opacity:.80;
+	filter: alpha(opacity=80);
+}
+
+.white_content {
+	margin: auto;
+	display: none;
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	height: 70%;
+	padding: 16px;
+	border: 16px solid #3498db;
+	background-color: white;
+	z-index:1002;
+	overflow: auto;
+}
+.result_image {
+	width: 75%;
+	margin: auto;
+	border-radius: 10%;
+	<!--position: absolute;-->
+	<!--height: 50%;-->
+	left: 10%;
+	<!--z-index:1002;-->
+	<!--overflow: auto;-->
+	text-align: center;
+}
+		
+.buttons{
+	height: 500%;
+	width: 50%;
+	margin: auto;
+}
+.header{
+	text-align: center;
+	font-weight: bold;
+	font-size: 180%
+}
+			
+	.content {
+		overflow: auto
+	}
+		</style>
+<style>
+<!--h2{ -->
+	<!--margin-bottom:10px;-->
+<!--}-->
+
+#wrapper{
+	width:720px;
+	margin:40px auto 0;
+}
+
+#wrapper h1{
+	color:#FFF;
+	text-align:center;
+	<!--margin-bottom:20px;-->
+}
+
+#wrapper a{
+	display:block;
+	font-size:1.2em;
+	padding-top:20px;
+	color:#FFF;
+	text-decoration:none;
+	text-align:center;
+}
+
+#tabContainer {
+	width:100%;
+	padding:15px;
+	<!--background-color:#2e2e2e;-->
+	-moz-border-radius: 4px;
+	border-radius: 4px; 
+}
+
+.tabs{
+	<!--height:30px;-->
+}
+
+.tabs > ul{
+	font-size: 1em;
+	list-style:none;
+}
+
+.tabs > ul > li{
+	margin:0 2px 0 0;
+	padding:7px 10px;
+	display:block;
+	float:left;
+	color:#FFF;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-top-left-radius:4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px; 
+	background: #C9C9C9; /* old browsers */
+	background: -moz-linear-gradient(top, #0C91EC 0%, #257AB6 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0C91EC), color-stop(100%,#257AB6)); /* webkit */
+}
+
+.tabs > ul > li:hover{
+	background: #FFFFFF; /* old browsers */
+	background: -moz-linear-gradient(top, #FFFFFF 0%, #F3F3F3 10%, #F3F3F3 50%, #FFFFFF 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(10%,#F3F3F3), color-stop(50%,#F3F3F3), color-stop(100%,#FFFFFF)); /* webkit */
+	cursor:pointer;
+	color: #333;
+}
+
+.tabs > ul > li.tabActiveHeader{
+	background: #FFFFFF; /* old browsers */
+	background: -moz-linear-gradient(top, #FFFFFF 0%, #F3F3F3 10%, #F3F3F3 50%, #FFFFFF 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(10%,#F3F3F3), color-stop(50%,#F3F3F3), color-stop(100%,#FFFFFF)); /* webkit */
+	cursor:pointer;
+	color: #333;
+}
+
+.tabscontent {
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px; 
+	padding:10px 10px 25px;
+	<!--background: #FFFFFF; /* old browsers */-->
+	<!--background: -moz-linear-gradient(top, #FFFFFF 0%, #FFFFFF 90%, #e4e9ed 100%); /* firefox */-->
+	<!--background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(90%,#FFFFFF), color-stop(100%,#e4e9ed)); /* webkit */-->
+	margin:0;
+	color:#333;
+}
+
+.table_header {
+	padding: 5px;
+
+}
+.table_item {
+	padding: 2px;
+	text-align:justify-all;
+	border: 1px solid black;
+
+}
+.table_string {
+	padding: 2px;
+
+}
+table {
+	width: 120%;
+		<!--position: absolute;-->
+	left: 0px;
+	padding: 10px;
+}
+</style>
+	</head>
+	<body>
+
+
+	<script src="https://static.addtoany.com/menu/page.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+
+
+		<!-- Latest Sortable -->
+		<!--<script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>-->
+		<script src="Sortable.js"></script>
+		<div class="list" style="width: 500px; margin: auto;">
+			<div class="top">Best</div>
+			<!-- Vote List -->
+			<div id="votelist" class="vote-group">
+			</div>
+			<div class="bottom">LAST—THE WORST</div>
+			<button id="result_button"class="result_button">VOTE</button>
+			<div> </div>
+			<div>
+			</div>
+			<div id="welcome" class="white_content">
+				<div class="header" >All votes matter!</div><div class="result_image">
+					You can sort the candidates by dragging and dropping them in any order, once you have order, where the first is the best candidate for you, and the last is the worst for you, click the "vote" button to see the result and share it with people. If you don't know enough about candidates you can read information on tab candidates and take the quiz on <a target="_blank" href="https://www.isidewith.com/">isidewith.com</a>.
+
+  <div id="tabContainer">
+    <div class="tabs">
+      <ul>
+        <li id="tabHeader_1">About</li>
+        <li id="tabHeader_2">Candidates</li>
+	<li id="tabHeader_3">#AllVotesMatter</li>
+      </ul>
+    </div>
+    <br>
+    <div class="tabscontent" style="transition: transform 1s ease 0s;">
+      <div class="tabpage" id="tabpage_1">
+    <br>
+	<h2 align=center></h2>
+	<p>
+	<div class="content">
+		There is an article about range voting on <a target="_blank" href="https://en.wikipedia.org/wiki/Range_voting">wikipedia</a>.<br>
+		In simple terms, the idea is that any election winner should be average best choice for everyone.<br>
+		For 4 candidates one vote:<br>
+		<OL>
+			<LI>1st will get 4 points
+				<LI>2nd will get 3 points
+					<LI>3rd will get 2 points
+						<LI>4th will get 1 point
+		</OL>
+		And when we count all points from all votes for each candidate, the one who will get most will be the winner. And that candidate will not be hated by half of the nation.
+	</div>
+	</p>
+      </div>
+      <div class="tabpage" id="tabpage_2">
+    <br>
+        <!--<h2>Candidates</h2>-->
+	<h2 align=center></h2>
+	<p>
+	<table>
+		<tr>
+			<th class="table_header" scope="col">President</th>
+			<th class="table_header" scope="col">Vice President</th>
+			<th class="table_header" scope="col">Party</th>
+			<th class="table_header" scope="col">Biography</th>
+			<th class="table_header" scope="col">Slogan</th>
+			<th class="table_header" scope="col">Views</th>
+			<th class="table_header" scope="col">Site</th>
+		</tr>
+		<tr class="table_string">
+			<td class="table_item"><a target="_blank" href="https://www.johnsonweld.com/about-gary-johnson">Gary Johnson</a></td>
+			<td class="table_item"><a target="_blank" href="https://www.johnsonweld.com/about-bill-weld">Bill Weld</a></td>
+			<td class="table_item"><a target="_blank" href="https://www.lp.org/">Libertarian</a></td>
+			<td class="table_item">
+				Politician, businessman,  served as Governor of New Mexico 95-03, Libertarian Party nominee for President of the United <a target="_blank" href="https://www.johnsonweld.com/about">States in the 2012 election...</a>
+			</td>
+			<td class="table_item">
+				We need to make America sane again.
+			</td>
+			<td class="table_item">
+				fiscally conservative and socially liberal
+			</td>
+			<td class="table_item">
+				<a target="_blank" href="https://www.johnsonweld.com/">JonsonWeld.com</a>
+			</td>
+		</tr>
+		<tr class="table_string">
+			<td class="table_item"><a target="_blank" href="http://www.jill2016.com/about">Jill Stein</a></td>
+			<td class="table_item"><a target="_blank" href="http://www.jill2016.com/meet_ajamu">Ajamu Baraka</a></td>
+			<td class="table_item"><a target="_blank" href="http://www.gp.org/">Green</a></td>
+			<td class="table_item">
+				Dr. Jill Stein was the Green Party’s 2012 candidate for President. She holds the current record for most votes ever received by a woman candidate for President of the United <a target="_blank" href="http://www.jill2016.com/about">States in the general election...</a>
+			</td>
+			<td class="table_item">
+				#ItsInOurHands
+			</td>
+			<td class="table_item">
+				socialist
+			</td>
+			<td class="table_item">
+				<a target="_blank" href="http://www.jill2016.com">Jill2016.com</a>
+			</td>
+		</tr>
+		<tr class="table_string">
+			<td class="table_item"><a target="_blank" href="https://www.hillaryclinton.com/about/hillary/">Hillary Clinton</a></td>
+			<td class="table_item"><a target="_blank" href="https://www.hillaryclinton.com/about/tim">Tim Kaine</a></td>
+			<td class="table_item"><a target="_blank" href="https://www.democrats.org/">Democratic</a></td>
+			<td class="table_item">
+				Hillary Clinton has served as secretary of state, U.S. senator from New York<a target="_blank" href="https://www.hillaryclinton.com/about/">...</a>
+			</td>
+			<td class="table_item">
+    I'm with her
+    Stronger together
+			</td>
+			<td class="table_item">
+				socialy liberal and fiscaly strict
+			</td>
+			<td class="table_item">
+				<a target="_blank" href="https://www.hillaryclinton.com/">HillaryClinton.com</a>
+			</td>
+		</tr>
+		<tr class="table_string">
+			<td class="table_item"><a target="_blank" href="https://www.donaldjtrump.com/about">Donald Trump</a></td>
+			<td class="table_item"><a target="_blank" href="https://www.donaldjtrump.com/about">Ajamu Baraka</a></td>
+			<td class="table_item"><a target="_blank" href="https://gop.com/">Republican</a></td>
+			<td class="table_item">
+				an American businessman, politician, television personality, and author, began on June 16, 2015<a target="_blank" href="https://www.donaldjtrump.com/about">...</a>
+			</td>
+			<td class="table_item">
+Make America Great Again
+			</td>
+			<td class="table_item">
+				Conservative
+			</td>
+			<td class="table_item">
+				<a target="_blank" href="https://www.donaldjtrump.com">DonaldJTrump.com</a>
+			</td>
+		</tr>
+		A little description of candidates, as quick reminder, search information by yourself if you want more.
+	</table>
+
+
+	</p>
+      </div>
+      <div class="tabpage" id="tabpage_3">
+    <br>
+        <!--<h2>#AllVotesMatter</h2>-->
+	<h2 align=center></h2>
+        <p>
+	<div class="content">
+		We've created this project because we hate the idea, that if you don't want one particular candidate to be elected, you have to vote for another particular candidate, even if you don't like him.<br>
+		When current president saying, that vote for third parties candidates is vote for candidate that he doesn't like, that's awful political culture and just showing us how bad US political system is.<br>
+		We believe that people should vote using range voting system. <br>
+		If you think so too, share your range vote with tags:
+<br>
+		<OL>
+			<LI>#RangeVote
+			<LI>#AllVotesMatter
+		</OL>
+		And when enough people will share their range votes in social networks, we will be able to count them and will see the average best candidate for society.
+	</div>
+	</p>
+      </div>
+    </div>
+  </div>
+
+
+<!--<a href = "javascript:void(0)" onclick = "document.getElementById('welcome').style.display='none';document.getElementById('welcome_fade').style.display='none'">Close</a>-->
+						<button id="result_button"class="result_button" onclick = "document.getElementById('welcome').style.display='none';document.getElementById('welcome_fade').style.display='none'">Ready to vote</button>
+				</div>
+			</div>
+			<div id="welcome_fade" class="black_overlay" onclick = "document.getElementById('welcome').style.display='none';document.getElementById('welcome_fade').style.display='none'"></div>
+			<div id="light" class="white_content">
+				<div class="header">Your vote</div>
+				<!--<div id="result_image"></div>-->
+				<!--<div id="result_image" style="background-image: none;">aoesunthaou</div>-->
+				<div class="result_image"><img id="result_image" width="100%"></img>
+				<div class="header">Share your vote</div>
+				<!-- Your share button code -->
+				<div id="buttons">
+					<!-- AddToAny BEGIN -->
+					<div class="a2a_kit a2a_kit_size_64 a2a_default_style a2a_target share-this">
+						<a class="a2a_button_facebook"></a>
+						<a class="a2a_button_twitter"></a>
+						<a class="a2a_button_google_plus"></a>
+						<a class="a2a_button_reddit"></a>
+						<a class="a2a_button_telegram"></a>
+						<a class="a2a_button_tumblr"></a>
+						<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+					</div>
+					<!-- AddToAny END -->
+					<!--<div id="facebook_share" class="fb-share-button" data-href="" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="">Share on Facebook</a></div>-->
+						<!--<span id="st_facebook_hcount"</span>-->
+						<!--<span id="st_twitter_hcount" class='st_twitter_hcount' displayText='Tweet'></span>-->
+						<!--<span id="st_reddit_hcount" class='st_reddit_hcount' displayText='Reddit'></span>-->
+						<!--<span id="st_reddit_hcount" class='st_tumblr_hcount' displayText='Tumblr'></span>-->
+
+						<!--<a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">vote again</a>-->
+						<button id="result_button"class="result_button" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">vote again</button>
+				</div></div>
+			</div>
+			<div id="fade" class="black_overlay"></div>
+		</div>
+	    <meta property="og:image"content="st/1234.png" />
+	    <script id="javascript">
+		var byId = function (id) { return document.getElementById(id); };
+		var candidates = []
+		candidates[1]="<div id='1' class='list-group-item libertarian'><img class='icon' src='st/johnson.jpg'/><div class='name'>Gary Johnson<div class='party'>Libertarian party</div></div></div>"
+		candidates[2]="<div id='2' class='list-group-item green' ><img class='icon' src='st/stein.jpg'/><div class='name'>Jill Stein<div class='party'>Green party</div></div></div>"
+		candidates[3]="<div id='3' class='list-group-item democrat'><img class='icon' src='st/hillary.jpg'/><div class='name'>Hillary Clinton<div class='party'>Democratic party</div></div></div>"
+		candidates[4]="<div id='4' class='list-group-item republican'><img class='icon' src='st/trump.jpg'/><div class='name'>Donald Trump<div class='party'>Republican party</div></div></div>"
+		var addCandidates = function(order){
+			var list = byId('votelist')
+			var result = ""
+			for ( var i = 0; i < order.length; i++ )
+			{
+				result += candidates[order[i]]
+			}
+			list.innerHTML=result
+
+		}
+	    </script>
+	    <script>
+	    window.onload=function() {
+
+  // get tab container
+  var container = document.getElementById("tabContainer");
+    // set current tab
+    var navitem = container.querySelector(".tabs ul li");
+    //store which tab we are on
+    var ident = navitem.id.split("_")[1];
+    navitem.parentNode.setAttribute("data-current",ident);
+    //set current tab with class of activetabheader
+    navitem.setAttribute("class","tabActiveHeader");
+
+    //hide two tab contents we don't need
+    var pages = container.querySelectorAll(".tabpage");
+    for (var i = 1; i < pages.length; i++) {
+      pages[i].style.display="none";
+    }
+
+    //this adds click event to tabs
+    var tabs = container.querySelectorAll(".tabs ul li");
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].onclick=displayPage;
+    }
+}
+
+// on click of one of tabs
+function displayPage() {
+  var current = this.parentNode.getAttribute("data-current");
+  //remove class of activetabheader and hide old contents
+  document.getElementById("tabHeader_" + current).removeAttribute("class");
+  document.getElementById("tabpage_" + current).style.display="none";
+
+  var ident = this.id.split("_")[1];
+  //add class of activetabheader to new active tab and show contents
+  this.setAttribute("class","tabActiveHeader");
+  document.getElementById("tabpage_" + ident).style.display="block";
+  this.parentNode.setAttribute("data-current",ident);
+}</script>
+		<script id="javascript">
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+if (localStorage.getItem("guid")){
+	<!--console.log(localStorage.getItem("guid"))-->
+}else{
+	localStorage.setItem("guid",guid())
+}
+</script>
+
+		<script id="javascript">
+var showResult = function(result){
+	console.log(location)
+	localStorage.setItem("vote", result);
+	var image = "st/"+result+".png"
+	var url = location.origin + "/"
+	<!--"https://rangevote.github.io/"-->
+	byId('result_image').src=image
+	<!--console.log(url+image)-->
+	var href=url+result+"#"+localStorage.getItem("guid")
+	var a2a_config = a2a_config || {};
+	a2a_config.linkname = 'Example Page';
+	a2a_config.linkurl = href;
+	if (a2a != null){
+	a2a.init('page', {
+		target: '.share-this',
+		linkurl: href,
+	});
+	}
+	byId('light').style.display='block'
+	byId('fade').style.display='block'
+
+}
+
+if (localStorage.getItem("vote")){
+	<!--alert("you voted="+localStorage.getItem("vote"))-->
+	showResult(localStorage.getItem("vote"))
+	//show results
+}else{
+	byId('welcome').style.display='block'
+	byId('welcome_fade').style.display='block'
+	//show Welcome
+}
+
+	    </script>
+		<script id="javascript">
+// List with handle
+vote=Sortable.create(votelist, {
+	animation: 150
+});
+var byId = function (id) { return document.getElementById(id); };
+console.log(location)
+var hash = location.hash.split("#")[1]
+	<!--.split("&")[0]-->
+console.log(hash)
+if (hash && hash.length == 4){
+	addCandidates(hash)
+}else{
+	addCandidates("1234")
+}
+<!--console.log(hash)-->
+
+byId('result_button').onclick = function () {
+	var vlst= byId("votelist")
+	var walker = document.createTreeWalker(vlst, NodeFilter.SHOW_ALL, null, false)
+	var next = walker.nextNode()
+	var result = ""
+	while (next){
+		if(next.id){
+			result += next.id
+		}
+		next = walker.nextNode()
+	}
+	<!--console.log(result)-->
+	location.hash="#"+result;
+	showResult(result);
+}
+
+		</script>
+		
+<script type="text/javascript">
+<!-- google_ad_client = "pub-UNIQUE_NUMBER";
+/* 300x250, created 29/03/10 */
+google_ad_slot = "11111111";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<!--<script type="text/javascript">-->
+  <!--( function() {-->
+    <!--if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };-->
+    <!--var unit = {"calltype":"async[2]","publisher":"rangevote","width":550,"height":250,"sid":"Chitika Default"};-->
+    <!--var placement_id = window.CHITIKA.units.length;-->
+    <!--window.CHITIKA.units.push(unit);-->
+    <!--byId('result_image').innerHTML='<div id="chitikaAdBlock-' + placement_id + '" class="ad"></div>';-->
+<!--}());-->
+<!--</script>-->
+<!--<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>-->
+	</body>
+</html>
