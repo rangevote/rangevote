@@ -590,6 +590,9 @@ var showResult = function(result){
 	<!--console.log(url+image)-->
 	var href=url+result+"#"+localStorage.getItem("guid")
 	var a2a_config = a2a_config || {};
+	a2a_config.templates = {
+		twitter: "${title} ${link} by @AddToAny"
+	};
 	a2a_config.linkname = 'Example Page';
 	a2a_config.linkurl = href;
 	if (a2a != null){
